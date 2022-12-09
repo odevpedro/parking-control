@@ -75,20 +75,6 @@ public class ParkingSpotController {
         }
 
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Object> updateParkingSpot(@PathVariable(value = "id") UUID id, @RequestBody @Valid ParkingSpotDto parkingSpotDto)
-    {
-        Optional<ParkingSpot> parkingSpotOptional = parkingSpotService.findById(id);
-        if (!parkingSpotOptional.isPresent()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Paking spot not found");
-        }
-        var parkingSpot = new ParkingSpot();
-        BeanUtils.copyProperties(parkingSpotDto, parkingSpot);
-        parkingSpot.setId(parkingSpotOptional.get().getId());
-        parkingSpot.setRegistrationDate(parkingSpotOptional.get().getRegistrationDate());
-
-        return ResponseEntity.status(HttpStatus.OK).body(parkingSpotService.save(parkingSpot));
-
-    }
+  
 
 }
