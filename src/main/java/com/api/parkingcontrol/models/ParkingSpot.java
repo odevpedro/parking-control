@@ -116,5 +116,13 @@ public class ParkingSpot implements Serializable {
         this.block = block;
     }
 
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
 
 }

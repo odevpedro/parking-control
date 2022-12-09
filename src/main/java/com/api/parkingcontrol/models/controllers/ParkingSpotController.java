@@ -1,4 +1,4 @@
-package com.api.parkingcontrol.controllers;
+package com.api.parkingcontrol.models.controllers;
 
 import com.api.parkingcontrol.dtos.ParkingSpotDto;
 import com.api.parkingcontrol.models.ParkingSpot;
@@ -82,15 +82,11 @@ public class ParkingSpotController {
         if (!parkingSpotOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Paking spot not found");
         }
-        var parkingSpot = parkingSpotOptional.get();
-        parkingSpot.setParkingSpotNumber(parkingSpotDto.getParkingSpotNumber());
-        parkingSpot.setLicensePlateCar(parkingSpotDto.getLicensePlateCar());
-        parkingSpot.setModelCar(parkingSpotDto.getModelCar());
-        parkingSpot.setBrandCar(parkingSpotDto.getBrandCar());
-        parkingSpot.setColorCar(parkingSpotDto.getColorCar());
-        parkingSpot.setResponsibleName(parkingSpotDto.getResponsibleName());
-        parkingSpot.setApartment(parkingSpotDto.getApartment());
-        parkingSpot.setBlock(parkingSpotDto.getBlock());
+        var parkingSpot = new ParkingSpot();
+        BeanUtils.copyProperties(parkingSpotDto, parkingSpot);
+        parkingSpot.setId(parkingSpotOptional.get().getId());
+        parkingSpot.setRegistrationDate(parkingSpotOptional.get().getRegistrationDate());
+
         return ResponseEntity.status(HttpStatus.OK).body(parkingSpotService.save(parkingSpot));
 
     }
