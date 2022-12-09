@@ -3,6 +3,8 @@ package com.api.parkingcontrol.services;
 import com.api.parkingcontrol.models.ParkingSpot;
 import com.api.parkingcontrol.repositories.ParkingSpotRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,8 +39,9 @@ public class ParkingSpotService {
         return parkingSpotRepository.existsByApartmentAndBlock(apartment, block);
     }
 
-    public List<ParkingSpot> findAll() {
-        return parkingSpotRepository.findAll();
+    public Page<ParkingSpot> findAll(Pageable pageable) {
+
+        return parkingSpotRepository.findAll(pageable);
     }
 
 
